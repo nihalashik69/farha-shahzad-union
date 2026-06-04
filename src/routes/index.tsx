@@ -2,14 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Calendar, Clock, MapPin, Phone, MessageCircle, Navigation } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
-import heroBg from "@/assets/hero-bg.jpg";
-import bismillah from "@/assets/couple-placeholder.jpg";
 import { FloatingNav } from "@/components/wedding/FloatingNav";
 import { Countdown } from "@/components/wedding/Countdown";
 import { Divider } from "@/components/wedding/Divider";
 import { RSVP } from "@/components/wedding/RSVP";
 import { Wishes } from "@/components/wedding/Wishes";
-import { Gallery } from "@/components/wedding/Gallery";
 
 export const Route = createFileRoute("/")({
   head: () => ({
