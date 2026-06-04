@@ -183,12 +183,16 @@ function Index() {
             { name: "Shahzad", role: "The Groom", desc: "Son of Mr. Shahul Hameed (Sabu Moopan) & Mrs. Shyna N.A" },
             { name: "Farha", role: "The Bride", desc: "Daughter of Mr. Firosh Ussanar & Mrs. Khadeeja Firosh" },
           ].map((p, i) => (
-            <motion.div key={p.name} {...fadeUp(i * 0.15)} className="glass rounded-3xl p-8 md:p-10 text-center">
-              <p className="font-sans uppercase tracking-[0.3em] text-xs text-gold mb-4">{p.role}</p>
-              <h3 className="font-display text-5xl md:text-6xl mb-4">{p.name}</h3>
-              <div className="mx-auto h-px w-16 bg-gold/40 my-4" />
-              <p className="text-muted-foreground italic">{p.desc}</p>
+            <motion.div key={p.name} {...fadeUp(i * 0.15)} className="glass rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
+              <CornerSet opacity={0.18} size={90} />
+              <p className="font-sans uppercase tracking-[0.3em] text-xs text-gold mb-4 relative">{p.role}</p>
+              <div className="ornate-frame mx-auto">
+                <h3 className="font-display text-5xl md:text-6xl gradient-gold-text">{p.name}</h3>
+              </div>
+              <div className="mx-auto h-px w-16 bg-gold/40 my-5" />
+              <p className="text-muted-foreground italic relative">{p.desc}</p>
             </motion.div>
+
           ))}
         </div>
       </Section>
