@@ -90,68 +90,82 @@ function Index() {
 
 
   return (
-    <main className="relative min-h-screen overflow-x-hidden">
+    <main className="relative min-h-screen overflow-x-hidden layered-bg">
       <Toaster position="top-center" />
       <FloatingNav />
+      <Petals count={16} />
 
       {/* HERO */}
-      <section id="home" className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 bg-gradient-to-b from-ivory via-ivory to-secondary/40 dark:from-background dark:to-background">
-        <div className="absolute inset-0 pointer-events-none opacity-40 [background-image:radial-gradient(circle_at_20%_20%,_color-mix(in_oklab,_var(--gold)_18%,_transparent),_transparent_50%),radial-gradient(circle_at_80%_80%,_color-mix(in_oklab,_var(--gold)_14%,_transparent),_transparent_55%)]" />
+      <section id="home" className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden bg-gradient-to-b from-ivory via-ivory to-secondary/40 dark:from-background dark:to-background">
+        <div
+          className="absolute inset-0 pointer-events-none opacity-50 [background-image:radial-gradient(circle_at_20%_20%,_color-mix(in_oklab,_var(--gold)_22%,_transparent),_transparent_50%),radial-gradient(circle_at_80%_80%,_color-mix(in_oklab,_var(--gold)_18%,_transparent),_transparent_55%)]"
+          style={{ transform: `translateY(${scrollY * 0.3}px)` }}
+        />
+        <GeoPattern opacity={0.05} />
+        <div style={{ transform: `translateY(${scrollY * 0.15}px)` }} className="absolute inset-0">
+          <CornerSet opacity={0.22} size={260} />
+        </div>
+        <GlowOrbs />
 
         <div className="relative z-10 max-w-3xl">
           <motion.p
             initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}
-            className="font-script text-2xl md:text-3xl text-gold mb-6"
+            className="font-script text-2xl md:text-3xl gradient-gold-text mb-6"
           >
             بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
           </motion.p>
           <motion.p
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3, duration: 1 }}
-            className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground mb-10"
+            className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground mb-12"
           >
             In the name of Allah, the Most Beneficent and Most Merciful
           </motion.p>
 
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 1.2 }}
-            className="font-display text-6xl md:text-8xl lg:text-9xl leading-[0.95] text-foreground"
+            className="inline-block ornate-frame"
           >
-            Shahzad
-          </motion.h1>
+            <h1 className="font-display text-6xl md:text-8xl lg:text-9xl leading-[0.95] gradient-gold-text">
+              Shahzad
+            </h1>
+          </motion.div>
           <motion.p
             initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.9, duration: 0.8 }}
-            className="font-script text-5xl md:text-7xl text-gold my-2 md:my-4"
+            className="font-script text-5xl md:text-7xl text-gold my-3 md:my-5"
           >
             &amp;
           </motion.p>
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.1, duration: 1.2 }}
-            className="font-display text-6xl md:text-8xl lg:text-9xl leading-[0.95] text-foreground"
+            className="inline-block ornate-frame"
           >
-            Farha
-          </motion.h1>
+            <h1 className="font-display text-6xl md:text-8xl lg:text-9xl leading-[0.95] gradient-gold-text">
+              Farha
+            </h1>
+          </motion.div>
 
           <motion.p
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6, duration: 1 }}
-            className="mt-10 max-w-md mx-auto font-display italic text-lg md:text-xl text-muted-foreground"
+            className="mt-12 max-w-md mx-auto font-display italic text-lg md:text-xl text-muted-foreground"
           >
             Together with their families invite you to celebrate their wedding
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.9, duration: 0.8 }}
-            className="mt-8 flex flex-col items-center gap-3"
+            className="mt-10 flex flex-col items-center gap-3"
           >
             <p className="font-display text-2xl text-gold">Saturday · 11 July 2026</p>
             <button
               onClick={() => document.getElementById("couple")?.scrollIntoView({ behavior: "smooth" })}
-              className="mt-6 px-10 py-4 rounded-full bg-gold text-primary-foreground font-sans uppercase tracking-[0.3em] text-xs hover:opacity-90 transition shadow-soft hover:scale-105"
+              className="mt-6 px-10 py-4 rounded-full bg-gradient-to-r from-gold to-[oklch(0.65_0.14_75)] text-primary-foreground font-sans uppercase tracking-[0.3em] text-xs hover:opacity-90 transition shadow-soft hover:scale-105"
             >
               Open Invitation
             </button>
           </motion.div>
         </div>
       </section>
+
 
       {/* COUPLE */}
       <Section id="couple">
