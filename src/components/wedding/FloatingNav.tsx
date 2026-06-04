@@ -9,7 +9,6 @@ const links = [
   { id: "countdown", label: "Countdown" },
   { id: "venue", label: "Venue" },
   { id: "family", label: "Family" },
-  { id: "gallery", label: "Gallery" },
   { id: "rsvp", label: "RSVP" },
   { id: "wishes", label: "Wishes" },
   { id: "contact", label: "Contact" },

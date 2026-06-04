@@ -2,14 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Calendar, Clock, MapPin, Phone, MessageCircle, Navigation } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
-import heroBg from "@/assets/hero-bg.jpg";
-import bismillah from "@/assets/couple-placeholder.jpg";
 import { FloatingNav } from "@/components/wedding/FloatingNav";
 import { Countdown } from "@/components/wedding/Countdown";
 import { Divider } from "@/components/wedding/Divider";
 import { RSVP } from "@/components/wedding/RSVP";
 import { Wishes } from "@/components/wedding/Wishes";
-import { Gallery } from "@/components/wedding/Gallery";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -70,15 +67,8 @@ function Index() {
       <FloatingNav />
 
       {/* HERO */}
-      <section id="home" className="relative min-h-screen flex flex-col items-center justify-center text-center px-6">
-        <img
-          src={heroBg}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover opacity-90"
-          width={1080}
-          height={1920}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-ivory/40 via-transparent to-ivory dark:from-background/60 dark:to-background" />
+      <section id="home" className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 bg-gradient-to-b from-ivory via-ivory to-secondary/40 dark:from-background dark:to-background">
+        <div className="absolute inset-0 pointer-events-none opacity-40 [background-image:radial-gradient(circle_at_20%_20%,_color-mix(in_oklab,_var(--gold)_18%,_transparent),_transparent_50%),radial-gradient(circle_at_80%_80%,_color-mix(in_oklab,_var(--gold)_14%,_transparent),_transparent_55%)]" />
 
         <div className="relative z-10 max-w-3xl">
           <motion.p
@@ -139,7 +129,7 @@ function Index() {
       <Section id="couple">
         <Divider label="The Beloved" />
         <motion.div {...fadeUp()} className="text-center max-w-2xl mx-auto">
-          <img src={bismillah} alt="Bismillah" loading="lazy" className="w-40 md:w-56 mx-auto mb-8 opacity-90" />
+          <p className="font-script text-4xl md:text-5xl text-gold mb-6">بِسْمِ اللَّهِ</p>
           <p className="font-display italic text-lg md:text-xl text-muted-foreground leading-relaxed">
             "And among His signs is this, that He created for you mates from among yourselves, that you may dwell in tranquility with them, and He has put love and mercy between your hearts."
           </p>
@@ -239,11 +229,6 @@ function Index() {
         </div>
       </Section>
 
-      {/* GALLERY */}
-      <Section id="gallery" className="bg-secondary/30">
-        <SectionTitle kicker="Memories" title="Gallery" />
-        <Gallery />
-      </Section>
 
       {/* RSVP */}
       <Section id="rsvp">
