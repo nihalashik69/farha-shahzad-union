@@ -229,11 +229,6 @@ function Index() {
         </div>
       </Section>
 
-      {/* GALLERY */}
-      <Section id="gallery" className="bg-secondary/30">
-        <SectionTitle kicker="Memories" title="Gallery" />
-        <Gallery />
-      </Section>
 
       {/* RSVP */}
       <Section id="rsvp">
