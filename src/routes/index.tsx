@@ -67,15 +67,8 @@ function Index() {
       <FloatingNav />
 
       {/* HERO */}
-      <section id="home" className="relative min-h-screen flex flex-col items-center justify-center text-center px-6">
-        <img
-          src={heroBg}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover opacity-90"
-          width={1080}
-          height={1920}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-ivory/40 via-transparent to-ivory dark:from-background/60 dark:to-background" />
+      <section id="home" className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 bg-gradient-to-b from-ivory via-ivory to-secondary/40 dark:from-background dark:to-background">
+        <div className="absolute inset-0 pointer-events-none opacity-40 [background-image:radial-gradient(circle_at_20%_20%,_color-mix(in_oklab,_var(--gold)_18%,_transparent),_transparent_50%),radial-gradient(circle_at_80%_80%,_color-mix(in_oklab,_var(--gold)_14%,_transparent),_transparent_55%)]" />
 
         <div className="relative z-10 max-w-3xl">
           <motion.p
