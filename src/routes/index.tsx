@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Calendar, Clock, MapPin, Phone, MessageCircle, Navigation } from "lucide-react";
@@ -7,6 +8,10 @@ import { Countdown } from "@/components/wedding/Countdown";
 import { Divider } from "@/components/wedding/Divider";
 import { RSVP } from "@/components/wedding/RSVP";
 import { Wishes } from "@/components/wedding/Wishes";
+import { CornerSet } from "@/components/wedding/FloralCorner";
+import { Petals } from "@/components/wedding/Petals";
+import { GeoPattern, GlowOrbs } from "@/components/wedding/GeoPattern";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
