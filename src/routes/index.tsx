@@ -40,21 +40,36 @@ function fadeUp(delay = 0) {
 
 function SectionTitle({ kicker, title }: { kicker?: string; title: string }) {
   return (
-    <div className="text-center mb-10">
+    <div className="text-center mb-14">
       {kicker && <p className="font-sans uppercase tracking-[0.3em] text-xs text-gold mb-3">{kicker}</p>}
-      <h2 className="font-display text-4xl md:text-5xl text-foreground">{title}</h2>
-      <div className="mx-auto mt-4 h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent" />
+      <h2 className="font-display text-4xl md:text-6xl gradient-gold-text inline-block">{title}</h2>
+      <div className="mx-auto mt-5 h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent" />
     </div>
   );
 }
 
-function Section({ id, children, className = "" }: { id: string; children: React.ReactNode; className?: string }) {
+function Section({
+  id,
+  children,
+  className = "",
+  pattern = false,
+  corners = true,
+}: {
+  id: string;
+  children: React.ReactNode;
+  className?: string;
+  pattern?: boolean;
+  corners?: boolean;
+}) {
   return (
-    <section id={id} className={`relative py-20 md:py-28 px-6 ${className}`}>
-      <div className="max-w-6xl mx-auto">{children}</div>
+    <section id={id} className={`relative py-24 md:py-32 px-6 overflow-hidden ${className}`}>
+      {pattern && <GeoPattern opacity={0.04} />}
+      {corners && <CornerSet opacity={0.13} size={180} />}
+      <div className="relative z-10 max-w-6xl mx-auto">{children}</div>
     </section>
   );
 }
+
 
 function Index() {
   const addToCalendar = () => {
