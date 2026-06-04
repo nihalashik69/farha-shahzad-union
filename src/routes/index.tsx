@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Calendar, Clock, MapPin, Phone, MessageCircle, Navigation } from "lucide-react";
@@ -7,6 +8,10 @@ import { Countdown } from "@/components/wedding/Countdown";
 import { Divider } from "@/components/wedding/Divider";
 import { RSVP } from "@/components/wedding/RSVP";
 import { Wishes } from "@/components/wedding/Wishes";
+import { CornerSet } from "@/components/wedding/FloralCorner";
+import { Petals } from "@/components/wedding/Petals";
+import { GeoPattern, GlowOrbs } from "@/components/wedding/GeoPattern";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -35,23 +40,45 @@ function fadeUp(delay = 0) {
 
 function SectionTitle({ kicker, title }: { kicker?: string; title: string }) {
   return (
-    <div className="text-center mb-10">
+    <div className="text-center mb-14">
       {kicker && <p className="font-sans uppercase tracking-[0.3em] text-xs text-gold mb-3">{kicker}</p>}
-      <h2 className="font-display text-4xl md:text-5xl text-foreground">{title}</h2>
-      <div className="mx-auto mt-4 h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent" />
+      <h2 className="font-display text-4xl md:text-6xl gradient-gold-text inline-block">{title}</h2>
+      <div className="mx-auto mt-5 h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent" />
     </div>
   );
 }
 
-function Section({ id, children, className = "" }: { id: string; children: React.ReactNode; className?: string }) {
+function Section({
+  id,
+  children,
+  className = "",
+  pattern = false,
+  corners = true,
+}: {
+  id: string;
+  children: React.ReactNode;
+  className?: string;
+  pattern?: boolean;
+  corners?: boolean;
+}) {
   return (
-    <section id={id} className={`relative py-20 md:py-28 px-6 ${className}`}>
-      <div className="max-w-6xl mx-auto">{children}</div>
+    <section id={id} className={`relative py-24 md:py-32 px-6 overflow-hidden ${className}`}>
+      {pattern && <GeoPattern opacity={0.04} />}
+      {corners && <CornerSet opacity={0.13} size={180} />}
+      <div className="relative z-10 max-w-6xl mx-auto">{children}</div>
     </section>
   );
 }
 
+
 function Index() {
+  const [scrollY, setScrollY] = useState(0);
+  useEffect(() => {
+    const onScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const addToCalendar = () => {
     const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
       "Shahzad & Farha Wedding"
@@ -61,69 +88,84 @@ function Index() {
     window.open(url, "_blank");
   };
 
+
   return (
-    <main className="relative min-h-screen overflow-x-hidden">
+    <main className="relative min-h-screen overflow-x-hidden layered-bg">
       <Toaster position="top-center" />
       <FloatingNav />
+      <Petals count={16} />
 
       {/* HERO */}
-      <section id="home" className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 bg-gradient-to-b from-ivory via-ivory to-secondary/40 dark:from-background dark:to-background">
-        <div className="absolute inset-0 pointer-events-none opacity-40 [background-image:radial-gradient(circle_at_20%_20%,_color-mix(in_oklab,_var(--gold)_18%,_transparent),_transparent_50%),radial-gradient(circle_at_80%_80%,_color-mix(in_oklab,_var(--gold)_14%,_transparent),_transparent_55%)]" />
+      <section id="home" className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden bg-gradient-to-b from-ivory via-ivory to-secondary/40 dark:from-background dark:to-background">
+        <div
+          className="absolute inset-0 pointer-events-none opacity-50 [background-image:radial-gradient(circle_at_20%_20%,_color-mix(in_oklab,_var(--gold)_22%,_transparent),_transparent_50%),radial-gradient(circle_at_80%_80%,_color-mix(in_oklab,_var(--gold)_18%,_transparent),_transparent_55%)]"
+          style={{ transform: `translateY(${scrollY * 0.3}px)` }}
+        />
+        <GeoPattern opacity={0.05} />
+        <div style={{ transform: `translateY(${scrollY * 0.15}px)` }} className="absolute inset-0">
+          <CornerSet opacity={0.22} size={260} />
+        </div>
+        <GlowOrbs />
 
         <div className="relative z-10 max-w-3xl">
           <motion.p
             initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}
-            className="font-script text-2xl md:text-3xl text-gold mb-6"
+            className="font-script text-2xl md:text-3xl gradient-gold-text mb-6"
           >
             بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
           </motion.p>
           <motion.p
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3, duration: 1 }}
-            className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground mb-10"
+            className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground mb-12"
           >
             In the name of Allah, the Most Beneficent and Most Merciful
           </motion.p>
 
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 1.2 }}
-            className="font-display text-6xl md:text-8xl lg:text-9xl leading-[0.95] text-foreground"
+            className="inline-block ornate-frame"
           >
-            Shahzad
-          </motion.h1>
+            <h1 className="font-display text-6xl md:text-8xl lg:text-9xl leading-[0.95] gradient-gold-text">
+              Shahzad
+            </h1>
+          </motion.div>
           <motion.p
             initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.9, duration: 0.8 }}
-            className="font-script text-5xl md:text-7xl text-gold my-2 md:my-4"
+            className="font-script text-5xl md:text-7xl text-gold my-3 md:my-5"
           >
             &amp;
           </motion.p>
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.1, duration: 1.2 }}
-            className="font-display text-6xl md:text-8xl lg:text-9xl leading-[0.95] text-foreground"
+            className="inline-block ornate-frame"
           >
-            Farha
-          </motion.h1>
+            <h1 className="font-display text-6xl md:text-8xl lg:text-9xl leading-[0.95] gradient-gold-text">
+              Farha
+            </h1>
+          </motion.div>
 
           <motion.p
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6, duration: 1 }}
-            className="mt-10 max-w-md mx-auto font-display italic text-lg md:text-xl text-muted-foreground"
+            className="mt-12 max-w-md mx-auto font-display italic text-lg md:text-xl text-muted-foreground"
           >
             Together with their families invite you to celebrate their wedding
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.9, duration: 0.8 }}
-            className="mt-8 flex flex-col items-center gap-3"
+            className="mt-10 flex flex-col items-center gap-3"
           >
             <p className="font-display text-2xl text-gold">Saturday · 11 July 2026</p>
             <button
               onClick={() => document.getElementById("couple")?.scrollIntoView({ behavior: "smooth" })}
-              className="mt-6 px-10 py-4 rounded-full bg-gold text-primary-foreground font-sans uppercase tracking-[0.3em] text-xs hover:opacity-90 transition shadow-soft hover:scale-105"
+              className="mt-6 px-10 py-4 rounded-full bg-gradient-to-r from-gold to-[oklch(0.65_0.14_75)] text-primary-foreground font-sans uppercase tracking-[0.3em] text-xs hover:opacity-90 transition shadow-soft hover:scale-105"
             >
               Open Invitation
             </button>
           </motion.div>
         </div>
       </section>
+
 
       {/* COUPLE */}
       <Section id="couple">
@@ -141,18 +183,22 @@ function Index() {
             { name: "Shahzad", role: "The Groom", desc: "Son of Mr. Shahul Hameed (Sabu Moopan) & Mrs. Shyna N.A" },
             { name: "Farha", role: "The Bride", desc: "Daughter of Mr. Firosh Ussanar & Mrs. Khadeeja Firosh" },
           ].map((p, i) => (
-            <motion.div key={p.name} {...fadeUp(i * 0.15)} className="glass rounded-3xl p-8 md:p-10 text-center">
-              <p className="font-sans uppercase tracking-[0.3em] text-xs text-gold mb-4">{p.role}</p>
-              <h3 className="font-display text-5xl md:text-6xl mb-4">{p.name}</h3>
-              <div className="mx-auto h-px w-16 bg-gold/40 my-4" />
-              <p className="text-muted-foreground italic">{p.desc}</p>
+            <motion.div key={p.name} {...fadeUp(i * 0.15)} className="glass rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
+              <CornerSet opacity={0.18} size={90} />
+              <p className="font-sans uppercase tracking-[0.3em] text-xs text-gold mb-4 relative">{p.role}</p>
+              <div className="ornate-frame mx-auto">
+                <h3 className="font-display text-5xl md:text-6xl gradient-gold-text">{p.name}</h3>
+              </div>
+              <div className="mx-auto h-px w-16 bg-gold/40 my-5" />
+              <p className="text-muted-foreground italic relative">{p.desc}</p>
             </motion.div>
+
           ))}
         </div>
       </Section>
 
       {/* DETAILS */}
-      <Section id="details" className="bg-secondary/30">
+      <Section id="details" className="bg-secondary/30" pattern>
         <SectionTitle kicker="Save the Date" title="Wedding Details" />
         <div className="grid md:grid-cols-3 gap-6">
           {[
@@ -179,13 +225,13 @@ function Index() {
       </Section>
 
       {/* COUNTDOWN */}
-      <Section id="countdown">
+      <Section id="countdown" pattern>
         <SectionTitle kicker="Counting the Moments" title="Until We Celebrate" />
         <Countdown />
       </Section>
 
       {/* VENUE */}
-      <Section id="venue" className="bg-secondary/30">
+      <Section id="venue" className="bg-secondary/30" pattern>
         <SectionTitle kicker="The Celebration" title="Our Venue" />
         <motion.div {...fadeUp()} className="glass rounded-3xl overflow-hidden max-w-4xl mx-auto">
           <iframe
@@ -231,13 +277,13 @@ function Index() {
 
 
       {/* RSVP */}
-      <Section id="rsvp">
+      <Section id="rsvp" pattern>
         <SectionTitle kicker="Kindly Respond" title="RSVP" />
         <RSVP />
       </Section>
 
       {/* WISHES */}
-      <Section id="wishes" className="bg-secondary/30">
+      <Section id="wishes" className="bg-secondary/30" pattern>
         <SectionTitle kicker="Du'a & Blessings" title="Leave a Wish" />
         <Wishes />
       </Section>
