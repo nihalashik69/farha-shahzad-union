@@ -72,6 +72,13 @@ function Section({
 
 
 function Index() {
+  const [scrollY, setScrollY] = useState(0);
+  useEffect(() => {
+    const onScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const addToCalendar = () => {
     const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
       "Shahzad & Farha Wedding"
@@ -80,6 +87,7 @@ function Index() {
     )}&location=${encodeURIComponent(VENUE)}`;
     window.open(url, "_blank");
   };
+
 
   return (
     <main className="relative min-h-screen overflow-x-hidden">
