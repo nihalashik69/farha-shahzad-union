@@ -198,7 +198,7 @@ function Index() {
       </Section>
 
       {/* DETAILS */}
-      <Section id="details" className="bg-secondary/30">
+      <Section id="details" className="bg-secondary/30" pattern>
         <SectionTitle kicker="Save the Date" title="Wedding Details" />
         <div className="grid md:grid-cols-3 gap-6">
           {[
@@ -225,13 +225,13 @@ function Index() {
       </Section>
 
       {/* COUNTDOWN */}
-      <Section id="countdown">
+      <Section id="countdown" pattern>
         <SectionTitle kicker="Counting the Moments" title="Until We Celebrate" />
         <Countdown />
       </Section>
 
       {/* VENUE */}
-      <Section id="venue" className="bg-secondary/30">
+      <Section id="venue" className="bg-secondary/30" pattern>
         <SectionTitle kicker="The Celebration" title="Our Venue" />
         <motion.div {...fadeUp()} className="glass rounded-3xl overflow-hidden max-w-4xl mx-auto">
           <iframe
@@ -277,13 +277,13 @@ function Index() {
 
 
       {/* RSVP */}
-      <Section id="rsvp">
+      <Section id="rsvp" pattern>
         <SectionTitle kicker="Kindly Respond" title="RSVP" />
         <RSVP />
       </Section>
 
       {/* WISHES */}
-      <Section id="wishes" className="bg-secondary/30">
+      <Section id="wishes" className="bg-secondary/30" pattern>
         <SectionTitle kicker="Du'a & Blessings" title="Leave a Wish" />
         <Wishes />
       </Section>
