@@ -169,7 +169,7 @@ function Index() {
 
       {/* COUPLE */}
       <Section id="couple">
-        <Divider label="The Beloved" />
+        <Divider label=". In the name of Allah ." />
         <motion.div {...fadeUp()} className="text-center max-w-2xl mx-auto">
           <p className="font-script text-4xl md:text-5xl text-gold mb-6">بِسْمِ اللَّهِ</p>
           <p className="font-display italic text-lg md:text-xl text-muted-foreground leading-relaxed">
@@ -257,13 +257,16 @@ function Index() {
         <SectionTitle kicker="With Blessings From" title="Our Families" />
         <div className="grid md:grid-cols-2 gap-8">
           <FamilyCard
-            title="Groom's Family"
-            parents={["Mr. Shahul Hameed (Sabu Moopan)", "Mrs. Shyna N.A"]}
-            grandparents={[
-              ["K. Ismail Moopan (Late)", "K. U. Mariyakutty (Late)"],
-              ["N. M. Abubacker (Late)", "P. B. Fathima"],
-            ]}
-          />
+  title="Groom's Family"
+  parents={["Mr. Shahul Hameed (Sabu Moopan)", "Mrs. Shyna N.A"]}
+  grandparents={[
+    ["K. Ismail Moopan (Late)", "K. U. Mariyakutty (Late)"],
+    ["N. M. Abubacker (Late)", "P. B. Fathima"],
+  ]}
+  joinedBy={[
+    "Shahabas, Raifa, Ahmed, Nihal, Aftab & Ayaan",
+  ]}
+/>
           <FamilyCard
             title="Bride's Family"
             parents={["Mr. Firosh Ussanar", "Mrs. Khadeeja Firosh"]}
@@ -271,6 +274,7 @@ function Index() {
               ["Ussanar Sahib (Late)", "Sara Umma (Late)"],
               ["Syed Mohammed (Late)", "Umaiba Beevi"],
             ]}
+          joinedBy={[""]}
           />
         </div>
       </Section>
@@ -292,7 +296,7 @@ function Index() {
       <Section id="contact">
         <SectionTitle kicker="Reach Out" title="Contact" />
         <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-          <ContactCard title="Groom's Family" phone="+91 90000 00001" />
+          <ContactCard title="Groom's Family" phone="+91 98475 80197" />
           <ContactCard title="Bride's Family" phone="+91 90000 00002" />
         </div>
       </Section>
@@ -312,7 +316,7 @@ function Index() {
   );
 }
 
-function FamilyCard({ title, parents, grandparents }: { title: string; parents: string[]; grandparents: string[][] }) {
+function FamilyCard({ title, parents, grandparents, joinedBy }: { title: string; parents: string[]; grandparents: string[][]; joinedBy?: string[];}) {
   return (
     <motion.div {...fadeUp()} className="glass rounded-3xl p-8">
       <p className="font-sans uppercase tracking-[0.3em] text-xs text-gold text-center mb-6">{title}</p>
@@ -332,6 +336,26 @@ function FamilyCard({ title, parents, grandparents }: { title: string; parents: 
           </div>
         ))}
       </div>
+      {joinedBy && joinedBy.length > 0 && (
+  <>
+    <div className="h-px bg-gold/30 my-6" />
+
+    <p className="text-center text-xs uppercase tracking-[0.25em] text-muted-foreground mb-4 font-sans">
+      Joined By
+    </p>
+
+    <div className="text-center">
+      {joinedBy.map((name) => (
+        <p
+          key={name}
+          className="font-display italic text-muted-foreground"
+        >
+          {name}
+        </p>
+      ))}
+    </div>
+  </>
+)}
     </motion.div>
   );
 }

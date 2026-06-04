@@ -6,8 +6,8 @@ type Entry = { name: string; phone: string; guests: number; attend: "yes" | "no"
 
 export function RSVP() {
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [guests, setGuests] = useState(1);
+  const [phone, setPhone] = useState("+91");
+  const [guests, setGuests] = useState();
   const [attend, setAttend] = useState<"yes" | "no">("yes");
   const [sent, setSent] = useState(false);
 
@@ -49,7 +49,7 @@ export function RSVP() {
           className="w-full bg-transparent border-b border-gold/40 py-2 font-display text-lg focus:outline-none focus:border-gold" />
       </Field>
       <Field label="Number of Guests">
-        <input value={guests} onChange={(e) => setGuests(Math.max(1, Math.min(20, +e.target.value || 1)))} type="number" min={1} max={20}
+        <input value={guests} onChange={(e) => setGuests(Math.max(1, Math.min(20, +e.target.value || 0)))} type="number" min={0} max={20}
           className="w-full bg-transparent border-b border-gold/40 py-2 font-display text-lg focus:outline-none focus:border-gold" />
       </Field>
       <Field label="Will you attend?">
