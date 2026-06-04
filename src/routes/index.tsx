@@ -129,7 +129,7 @@ function Index() {
       <Section id="couple">
         <Divider label="The Beloved" />
         <motion.div {...fadeUp()} className="text-center max-w-2xl mx-auto">
-          <img src={bismillah} alt="Bismillah" loading="lazy" className="w-40 md:w-56 mx-auto mb-8 opacity-90" />
+          <p className="font-script text-4xl md:text-5xl text-gold mb-6">بِسْمِ اللَّهِ</p>
           <p className="font-display italic text-lg md:text-xl text-muted-foreground leading-relaxed">
             "And among His signs is this, that He created for you mates from among yourselves, that you may dwell in tranquility with them, and He has put love and mercy between your hearts."
           </p>
