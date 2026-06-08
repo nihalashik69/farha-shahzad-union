@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Calendar, Clock, MapPin, Phone, MessageCircle, Navigation } from "lucide-react";
@@ -6,11 +6,11 @@ import { Toaster } from "@/components/ui/sonner";
 import { FloatingNav } from "@/components/wedding/FloatingNav";
 import { Countdown } from "@/components/wedding/Countdown";
 import { Divider } from "@/components/wedding/Divider";
-import { RSVP } from "@/components/wedding/RSVP";
-import { Wishes } from "@/components/wedding/Wishes";
+
 import { CornerSet } from "@/components/wedding/FloralCorner";
 import { Petals } from "@/components/wedding/Petals";
 import { GeoPattern, GlowOrbs } from "@/components/wedding/GeoPattern";
+import { CoupleAnimation } from "@/components/wedding/CoupleAnimation";
 
 
 export const Route = createFileRoute("/")({
@@ -73,6 +73,8 @@ function Section({
 
 function Index() {
   const [scrollY, setScrollY] = useState(0);
+  const detailsRef = useRef<HTMLDivElement>(null);
+  const countdownRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const onScroll = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -90,13 +92,15 @@ function Index() {
 
 
   return (
-    <main className="relative min-h-screen overflow-x-hidden layered-bg">
+    <main className="relative min-h-screen overflow-x-hidden">
+      {/* Fixed Background */}
+      <div className="fixed inset-0 -z-10 layered-bg" />
       <Toaster position="top-center" />
       <FloatingNav />
       <Petals count={16} />
 
       {/* HERO */}
-      <section id="home" className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden bg-gradient-to-b from-ivory via-ivory to-secondary/40 dark:from-background dark:to-background">
+      <section id="home" className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none opacity-50 [background-image:radial-gradient(circle_at_20%_20%,_color-mix(in_oklab,_var(--gold)_22%,_transparent),_transparent_50%),radial-gradient(circle_at_80%_80%,_color-mix(in_oklab,_var(--gold)_18%,_transparent),_transparent_55%)]"
           style={{ transform: `translateY(${scrollY * 0.3}px)` }}
@@ -198,7 +202,8 @@ function Index() {
       </Section>
 
       {/* DETAILS */}
-      <Section id="details" className="bg-secondary/30" pattern>
+      <div ref={detailsRef}>
+        <Section id="details" pattern>
         <SectionTitle kicker="Save the Date" title="Wedding Details" />
         <div className="grid md:grid-cols-3 gap-6">
           {[
@@ -222,16 +227,25 @@ function Index() {
             <Calendar size={16} /> Add to Calendar
           </button>
         </div>
-      </Section>
+        </Section>
+      </div>
+
+      {/* COUPLE ANIMATION */}
+      <CoupleAnimation detailsRef={detailsRef} countdownRef={countdownRef} />
+
+      {/* SPACER - TWEAK THIS VALUE TO ADJUST SPACE! */}
+      <div className="h-[100vh]" />
 
       {/* COUNTDOWN */}
-      <Section id="countdown" pattern>
+      <div ref={countdownRef}>
+        <Section id="countdown" pattern>
         <SectionTitle kicker="Counting the Moments" title="Until We Celebrate" />
         <Countdown />
-      </Section>
+        </Section>
+      </div>
 
       {/* VENUE */}
-      <Section id="venue" className="bg-secondary/30" pattern>
+      <Section id="venue" pattern>
         <SectionTitle kicker="The Celebration" title="Our Venue" />
         <motion.div {...fadeUp()} className="glass rounded-3xl overflow-hidden max-w-4xl mx-auto">
           <iframe
@@ -255,16 +269,13 @@ function Index() {
       {/* FAMILY */}
       <Section id="family">
         <SectionTitle kicker="With Blessings From" title="Our Families" />
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-8 mb-8">
           <FamilyCard
   title="Groom's Family"
   parents={["Mr. Shahul Hameed (Sabu Moopan)", "Mrs. Shyna N.A"]}
   grandparents={[
     ["K. Ismail Moopan (Late)", "K. U. Mariyakutty (Late)"],
     ["N. M. Abubacker (Late)", "P. B. Fathima"],
-  ]}
-  joinedBy={[
-    "Shahabas, Raifa, Ahmed, Nihal, Aftab & Ayaan",
   ]}
 />
           <FamilyCard
@@ -274,30 +285,31 @@ function Index() {
               ["Ussanar Sahib (Late)", "Sara Umma (Late)"],
               ["Syed Mohammed (Late)", "Umaiba Beevi"],
             ]}
-          joinedBy={[""]}
           />
         </div>
+        <motion.div {...fadeUp(0.2)} className="glass rounded-3xl p-8 text-center">
+          <p className="font-sans uppercase tracking-[0.3em] text-xs text-gold mb-6">Joined By</p>
+          <p className="font-display italic text-muted-foreground mb-8">
+            Shahabas, Raifa, Ahmed, Fayiz, Aftab, Ayaan & Nihal
+          </p>
+          <img
+            src="/grppic.png"
+            alt="Group Photo"
+            className="w-full max-w-3xl mx-auto rounded-2xl"
+            style={{ filter: 'drop-shadow(0 0 8px oklch(0.65_0.14_75))' }}
+          />
+        </motion.div>
       </Section>
 
 
-      {/* RSVP */}
-      <Section id="rsvp" pattern>
-        <SectionTitle kicker="Kindly Respond" title="RSVP" />
-        <RSVP />
-      </Section>
 
-      {/* WISHES */}
-      <Section id="wishes" className="bg-secondary/30" pattern>
-        <SectionTitle kicker="Du'a & Blessings" title="Leave a Wish" />
-        <Wishes />
-      </Section>
 
       {/* CONTACT */}
       <Section id="contact">
         <SectionTitle kicker="Reach Out" title="Contact" />
         <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
           <ContactCard title="Groom's Family" phone="+91 98475 80197" />
-          <ContactCard title="Bride's Family" phone="+91 90000 00002" />
+          <ContactCard title="Bride's Family" phone="+91 99950 08179" />
         </div>
       </Section>
 
@@ -316,7 +328,7 @@ function Index() {
   );
 }
 
-function FamilyCard({ title, parents, grandparents, joinedBy }: { title: string; parents: string[]; grandparents: string[][]; joinedBy?: string[];}) {
+function FamilyCard({ title, parents, grandparents }: { title: string; parents: string[]; grandparents: string[][];}) {
   return (
     <motion.div {...fadeUp()} className="glass rounded-3xl p-8">
       <p className="font-sans uppercase tracking-[0.3em] text-xs text-gold text-center mb-6">{title}</p>
@@ -336,26 +348,6 @@ function FamilyCard({ title, parents, grandparents, joinedBy }: { title: string;
           </div>
         ))}
       </div>
-      {joinedBy && joinedBy.length > 0 && (
-  <>
-    <div className="h-px bg-gold/30 my-6" />
-
-    <p className="text-center text-xs uppercase tracking-[0.25em] text-muted-foreground mb-4 font-sans">
-      Joined By
-    </p>
-
-    <div className="text-center">
-      {joinedBy.map((name) => (
-        <p
-          key={name}
-          className="font-display italic text-muted-foreground"
-        >
-          {name}
-        </p>
-      ))}
-    </div>
-  </>
-)}
     </motion.div>
   );
 }
